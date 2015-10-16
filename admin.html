@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Doctor's Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+          #sidebars{
+            display: none;
+        }
+        h3{
+            color:white;
+        }
+        #tool,.iconsx,.iconsxs,.iconsxz,.iconsxy{
+            cursor: pointer;
+        }
+        .results tr[visible='false'],
+        .no-result{
+          display:none;
+        }
+        
+        .results tr[visible='true']{
+          display:table-row;
+        }
+        
+        .counter{
+          padding:8px; 
+          color:#ccc;
+        }
+       
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h3 id="tool">Hi Doctor</h3>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="profile.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div  class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="mybar" class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="admin.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#morris-area-chart"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
+                    </li>
+                    <li>
+                        <a href="calendar.html"><i class="fa fa-fw fa-table"></i>Calendar</a>
+                    </li>
+                    <li>
+                        <a href="#allpatients"><i class="fa fa-fw fa-edit"></i>Patients</a>
+                    </li>
+                   <li>
+                        <a href="index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Statistics Overview</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="counters pull-right huge"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left"><a href=".esconders">View More</a></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-usd fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                       <div id="sumatoria" class="huge"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">124</div>
+                                        <div>New Orders!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-support fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">13</div>
+                                        <div>Support Tickets!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                
+                    <div class="col-lg-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart<i class='iconsx glyphicon glyphicon-minus pull-right'></i></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart" class="esconder"></div>
+                                <div class="text-right">
+                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-lg-3 pull-right">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i>Most common illiness<i class='iconsxz glyphicon glyphicon-minus pull-right'></i></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-donut-chart" class="esconderz"></div>
+                                <div class="text-right">
+                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!-- /.row -->
+
+                
+                    
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-fw fa-calendar"></i> Calendar<i class='iconsxy glyphicon glyphicon-minus pull-right'></i></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="upto-calendar-container-M4LO" class="upto-calendar-plugin escondery"><script>!function(c,b,a){function d(h){var e=document.getElementById("upto-calendar-container-"+c),f=document.createElement("SCRIPT"),g="https://upto.com/js/plugin.js";f.onreadystatechange=function(){if(f.readyState==="loaded"||f.readyState==="complete"){f.onreadystatechange=null;h()}};f.onload=function(){h()};f.setAttribute("src",g);e.parentNode.insertBefore(f,e)}d(function(){upto.init(c)})}("M4LO");</script></div>
+                        </div>
+                                <div class="list-group">
+                                   <div class="calendar-container">
+		
+		                </div>
+                                   
+                                </div>
+                                <div class="text-right">
+                                    <a href="calendar.html">View Full Calendar <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> Patients Panel<i class='iconsxs glyphicon glyphicon-minus pull-right'></i></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="esconders table-responsive">
+                                    <div class="form-group pull-right">
+                                        <input type="text" class="search form-control" placeholder="Search...">
+                                    </div>
+                                    <span class="counter pull-right"></span>
+                                    
+                                 <table id="allpatients" class="table table-hover table-bordered results" border="1">
+                                    <thead>
+                                        <tr>
+                                          <th>Patient#</th>
+                                          <th class="col-md-5 col-xs-5">Name / Surname</th>
+                                          <th class="col-md-4 col-xs-4">Problem</th>
+                                          <th class="col-md-3 col-xs-3">Amount Due</th>
+                                        </tr>
+                                        
+                                      </thead>
+                                         <tr>
+                                          <th scope="row">1</th>
+                                          <td>Nych Lynch</td>
+                                          <td>Fever</td>
+                                          <td class ="price" value="10.0">10.0</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>Amanda Samson</td>
+                                          <td>Nutcracker syndrome</td>
+                                          <td class ="price" value="89.0">89.50</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td>Kyle Greening</td>
+                                          <td>headache</td>
+                                          <td class ="price" value="95.0">95</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">4</th>
+                                          <td>John Smit</td>
+                                          <td>stomachace</td>
+                                          <td class ="price" value="30.0">30</td>
+                                        </tr>
+                                </table>
+                           
+                           
+                             
+                                </div>
+                                
+                                <div class="text-right">
+                                    <a href="#">View All Patients <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+        
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            //  /*----------*/
+            
+            //     //iterate through each textboxes and add keyup
+            //   //handler to trigger sum event
+            //      var sum = 0;
+            //         $(calculateSum);
+            //      function calculateSum(){
+                   
+            //         $(".price").each(function() {
+            //             var value = $(this).text();
+            //             if(!isNaN(value) && value.length != 0) {
+            //                 sum += parseFloat(value);
+            //             }
+            //         });
+            //      $('#result').text(sum);       
+            //      }
+            //  /*----------*/
+            $('#tool').click(function () {
+               $('#mybar').toggle();
+            });
+            $('.iconsx').click(function () {
+               $('.esconder').toggle();
+               if($('.esconder').is(':visible')) {
+                   $(this).removeClass('glyphicon glyphicon-plus');  
+                    $(this).addClass('glyphicon glyphicon-minus');
+                           
+                    } 
+                    else{
+                      
+                    $(this).removeClass('glyphicon glyphicon-minus'); 
+                      $(this).addClass('glyphicon glyphicon-plus');  
+                    } 
+            });
+             /*----------*/
+            $('.iconsxs').click(function () {
+               $('.esconders').toggle();
+               if($('.esconders').is(':visible')) {
+                   $(this).removeClass('glyphicon glyphicon-plus');  
+                    $(this).addClass('glyphicon glyphicon-minus');
+                           
+                    } 
+                    else{
+                      
+                    $(this).removeClass('glyphicon glyphicon-minus'); 
+                      $(this).addClass('glyphicon glyphicon-plus');  
+                    } 
+            });
+             /*----------*/
+            $('.iconsxz').click(function () {
+               $('.esconderz').toggle();
+               if($('.esconderz').is(':visible')) {
+                   $(this).removeClass('glyphicon glyphicon-plus');  
+                    $(this).addClass('glyphicon glyphicon-minus');
+                           
+                    } 
+                    else{
+                      
+                    $(this).removeClass('glyphicon glyphicon-minus'); 
+                      $(this).addClass('glyphicon glyphicon-plus');  
+                    } 
+            });
+             /*----------*/
+                 /*----------*/
+            $('.iconsxy').click(function () {
+               $('.escondery').toggle();
+               if($('.escondery').is(':visible')) {
+                   $(this).removeClass('glyphicon glyphicon-plus');  
+                    $(this).addClass('glyphicon glyphicon-minus');
+                           
+                    } 
+                    else{
+                      
+                    $(this).removeClass('glyphicon glyphicon-minus'); 
+                      $(this).addClass('glyphicon glyphicon-plus');  
+                    } 
+            });
+             /*----------*/
+             $(".search").keyup(function () {
+                var searchTerm = $(".search").val();
+                var listItem = $('.results tbody').children('tr');
+                var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+                
+                  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+                        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                    }
+                  });
+                    
+                  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+                    $(this).attr('visible','false');
+                  });
+                
+                  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+                    $(this).attr('visible','true');
+                  });
+                
+                  var jobCount = $('.results tbody tr[visible="true"]').length;
+                    $('.counter').text(jobCount + ' patients');
+                
+                  if(jobCount == '0') {$('.no-result').show();}
+                    else {$('.no-result').hide();}
+            });
+             /*----------*/
+                var searchTerm = $(".search").val();
+                var listItem = $('.results tbody').children('tr');
+                var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
+                
+                  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+                        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                    }
+                  });
+                    
+                  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+                    $(this).attr('visible','false');
+                  });
+                
+                  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+                    $(this).attr('visible','true');
+                  });
+                
+                  var jobCount = $('.results tbody tr[visible="true"]').length;
+                    $('.counters').text(jobCount + ' patients');
+             /*----------*/
+                function calculateSum() {
+                    var sum = 0;
+                    $(".price").each(function() {
+                        var value = parseFloat($(this).text());
+                        if(!isNaN(value)) {
+                            sum += value;
+                        }
+                    });
+                    return sum;
+                }
+                
+                $("#sumatoria").text(calculateSum());
+                
+                
+        });
+    </script>
+    
+    
+    
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
+
+</body>
+
+</html>
