@@ -241,6 +241,108 @@
             }
             $.get('http://localhost:2000/admin/data',function(data){
                 console.log(data);
+                var highest,middle, lowest;
+                var highestL,middleL, lowestL;
+                var fever = [];
+                var flu = []
+                var allergies = [];
+                var headeache = [];
+                var stomachache = [];
+                var STD = [];
+                var others = [];
+                
+                 for(var i = 0; i<data.length;i++){
+                   if(data[i].symptoms == 'flu'){
+                       flu.push(data[i]);
+                   }
+                   else if(data[i].symptoms == 'allergies'){
+                      allergies.push(data[i]); 
+                   }
+                   else if(data[i].symptoms == 'fever'){
+                      fever.push(data[i]); 
+                   }
+                   else if(data[i].symptoms == 'headeache'){
+                      headeache.push(data[i]); 
+                   }
+                   else if(data[i].symptoms == 'stomachache'){
+                      stomachache.push(data[i]); 
+                   }
+                   else if(data[i].symptoms == 'STD'){
+                      STD.push(data[i]); 
+                   }
+                   else{
+                      others.push(data[i]); 
+                   }
+                }
+                console.log(flu.length);
+               /* flu={
+                        name:"flu",
+                        length: flu.length
+                    };
+                allergies={
+                        name:"allergies",
+                        length: allergies.length
+                    };
+                fever={
+                        name:"fever",
+                        length: fever.length
+                    };
+                headache={
+                    name:"headeache",
+                    length: headeache.length
+                };
+                stomachache={
+                        name:"stomachache",
+                        length: stomachache.length
+                    };
+                STD={
+                        name:"STD",
+                        length: STD.length
+                    };
+                others={
+                        name:"others",
+                        length: others.length
+                };  */            
+                /*var all = [];
+                all.push(flu);
+                all.push(allergies);
+                all.push(fever);
+                all.push(headeache);
+                all.push(stomachache);
+                all.push(STD);
+                all.push(others);
+                //all.sort();
+                lowest = all[0];
+                highest = all[all.length-1];
+                middle = all[(all.length-1)/2];
+                
+                var index = all.indexOf(flu.length);
+                console.log("object " + all[0].name);*/
+              
+                
+             
+                
+                // Donut Chart
+                Morris.Donut({
+                    element: 'morris-donut-chart',
+                    data: [{
+                        label: "HOla",
+                        value: 5
+                    }, {
+                        label: "HOla",
+                        value: middle,
+                    }, {
+                        label: "HOla",
+                        value: lowest
+                    }],
+                    colors: [
+                        '#cc3300',
+                        '#0066cc',
+                        '#ffcc00',
+                    ],
+                    resize: true
+                });
             });
+            // http://www.coderanch.com/t/520876/java/java/count-instances-word-String 
+            //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript    
 		</script>
-      
