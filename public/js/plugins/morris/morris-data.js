@@ -65,7 +65,7 @@ $(function() {
     });
 
     // Donut Chart
-    Morris.Donut({
+   /* Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
             label: "Fever",
@@ -78,7 +78,7 @@ $(function() {
             value: 20
         }],
         resize: true
-    });
+    });*/
 
     // Line Chart
     Morris.Line({
