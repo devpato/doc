@@ -18,7 +18,8 @@ mongoose.connect('mongodb://pevargas:Policia9@ds061984.mongolab.com:61984/users'
 		age: String,
 		sex: String,
 		symptoms: String,
-		ssn:'String'
+		ssn:'String',
+		amount: Number
 		
 	});
 var user = mongoose.model('patients', Schema);

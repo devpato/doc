@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+                                        <div>Appointment today!</div>
                                     </div>
                                 </div>
                             </div>
@@ -136,9 +136,8 @@
                                 <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart<i class='iconsx glyphicon glyphicon-minus pull-right'></i></h3>
                             </div>
                             <div class="panel-body">
-                                <div id="morris-area-chart" class="esconder"></div>
-                                <div class="text-right">
-                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                <div  class="col-sm-6 text-center">
+                                    <div id="divname"></div>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +199,7 @@
                                           <th>Patient#</th>
                                           <th class="col-md-5 col-xs-5">Name / Last Name</th>
                                           <th class="col-md-4 col-xs-4">Problem</th>
-                                          <th class="col-md-3 col-xs-3">Amount Due</th>
+                                          <th class="col-md-3 col-xs-3">Amount Due$</th>
                                         </tr>                                   
                                      </thead>
                                      {{#each users}}
@@ -208,7 +207,7 @@
                                           <th scope="row" class='num'></th>
                                           <td>{{name}} {{lastName}}</td>
                                           <td>{{symptoms}}</td>
-                                          <td class ="price" value="10.0">10.0</td>
+                                          <td class ="price">{{amount}}</td>
                                         </tr>
                                       {{/each}}  
                                 </table>                           
@@ -241,8 +240,8 @@
             }
             $.get('http://localhost:2000/admin/data',function(data){
                 console.log(data);
-                var highest,middle, lowest;
-                var highestL,middleL, lowestL;
+                var highest,second, third;
+                var highestL,secondL, thirdL;
                 var fever = [];
                 var flu = []
                 var allergies = [];
@@ -275,7 +274,7 @@
                    }
                 }
                 console.log(flu.length);
-               /* flu={
+               flu={
                         name:"flu",
                         length: flu.length
                     };
@@ -302,38 +301,43 @@
                 others={
                         name:"others",
                         length: others.length
-                };  */            
-                /*var all = [];
+                };           
+                var all = [];
                 all.push(flu);
                 all.push(allergies);
                 all.push(fever);
-                all.push(headeache);
-                all.push(stomachache);
-                all.push(STD);
-                all.push(others);
+                all.push(headache);
+                all.push(stomachache);//
+                all.push(STD);//
+                all.push(others);//
                 //all.sort();
-                lowest = all[0];
-                highest = all[all.length-1];
-                middle = all[(all.length-1)/2];
                 
-                var index = all.indexOf(flu.length);
-                console.log("object " + all[0].name);*/
-              
-                
-             
-                
+                all.sort(function(a,b){
+                    return a.length - b.length;
+                });
+              for(var i = 0;i<all.length;i++){
+                  console.log(all[i]);
+              }
+             console.log("******************");
+             highest = all[6].length;
+             highestL = all[6].name;
+             third = all[4].length;
+             thirdL = all[4].name;
+             console.log(all[0].name);
+             second= all[5].length;
+             secondL = all[5].name;
                 // Donut Chart
                 Morris.Donut({
                     element: 'morris-donut-chart',
                     data: [{
-                        label: "HOla",
-                        value: 5
+                        label: highestL,
+                        value: highest
                     }, {
-                        label: "HOla",
-                        value: middle,
+                        label: secondL,
+                        value: second
                     }, {
-                        label: "HOla",
-                        value: lowest
+                        label: thirdL,
+                        value: third
                     }],
                     colors: [
                         '#cc3300',
@@ -343,6 +347,38 @@
                     resize: true
                 });
             });
+
             // http://www.coderanch.com/t/520876/java/java/count-instances-word-String 
             //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript    
 		</script>
+        <script>
+            //pasar los pacientes y ponerlos en array 
+            $.get( "http://localhost:2000/admin/data", function( data ) {
+                data = data.map(function(datum) {
+            
+            if(datum.amount) {
+                return {
+                    item: datum.name,
+                    amount: datum.amount
+                };
+            }
+            return {
+                item: datum.name,
+                amount:0
+            }
+            
+        });     
+        new Morris.Bar({
+        element: 'divname',
+        data: data,
+        xkey: 'item',
+        ykeys: ['amount'],
+        labels: ['Amount due'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        resize: true
+    });
+
+        </script>
+ 
