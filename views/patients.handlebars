@@ -1,0 +1,211 @@
+        <style>
+            .star{
+                color: red;
+                font-size: 21px;
+            }
+            .myPatient,.myUpdate{
+                display: none;
+            }
+        </style>    
+        <div  class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="mybar" class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="admin.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#morris-area-chart"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
+                    </li>
+                    <li>
+                        <a href="calendar.html"><i class="fa fa-fw fa-table"></i>Calendar</a>
+                    </li>
+                    <li>
+                        <a href="#allpatients"><i class="fa fa-fw fa-edit"></i>Patients</a>
+                    </li>
+                   <li>
+                        <a href="index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Statistics Overview</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="counters pull-right huge"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left"><a href=".esconders">View More</a></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-usd fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                       <div id="sumatoria" class="huge"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                        <div  class='col-xs-3'>
+                            <button class='btn btn-warning' id="add">Add Patient</button>
+                            <form class='myPatient' action="/new" method="POST">
+                                <label for="email">Email: </label>
+                                <input type="email" name="email" /><span class="star">*</span><br />
+                                <label for="name">Name: </label>
+                                <input type="text" name="name" /><span class="star">*</span><br />
+                                <label for="lastName">LastName: </label>
+                                <input type="text" name="lastName" /><span class="star">*</span><br />
+                                <label for="age">Age: </label>
+                                <input type="number" name="age" /><span class="star">*</span><br />
+                                <label for="sex">Sex: </label>
+                                <input type="text" name="sex" /><span class="star">*</span><br />
+                                <label for="symptoms">Symptoms: </label>
+                                <input type="text" name="symptoms" /><span class="star">*</span><br />
+                                <label for="ssn">SSN: </label>
+                                <input type="text" name="ssn" /><span class="star">*</span><br />
+                                <label for="amount">Amount due $: </label>
+                                <input type="text" name="amount" /><br />
+                                <button class='btn btn-warning'>Add</button>
+                            </form>
+                        </div>
+                        <div  class='col-xs-3'>
+                            <button class='btn btn-warning' id="update">Update Patient</button>
+                            <form  class='myUpdate' action="/update" method="POST">                            
+                                <label for="email">Email: </label>
+                                <input type="email" name="emailU" /><span class="star">*</span><br />
+                                <label for="name">Name: </label>
+                                <input type="text" name="nameU" /><br/>
+                                <label for="lastName">LastName: </label>
+                                <input type="text" name="lastNameU"  /><br/>
+                                <label for="age">Age: </label>
+                                <input type="number" name="ageU" /><br />
+                                <label for="sex">Sex: </label>
+                                <input type="text" name="sexU"/><br />
+                                <label for="symptoms">Symptoms: </label>
+                                <input type="text" name="symptomsU"  /><br />
+                                <label for="ssn">SSN: </label>
+                                <input type="text" name="ssnU" /><br />
+                                <label for="amount">Amount due $: </label>
+                                <input type="text" name="amountU" /><br />
+                                <button class='btn btn-warning'>Update</button>
+                            </form>
+                        </div>
+                </div>
+                <!-- /.row -->
+                  
+                <!-- /.row -->
+                <div class="panel-body">
+        <div class="esconders table-responsive">
+            <div class="form-group pull-right">
+                <input type="text" class="search form-control" placeholder="Search...">
+            </div>
+            <span class="counter pull-right"></span>
+            
+            <table id="allpatients" class="table table-hover table-bordered results" border="1">
+            <thead>
+                <tr>
+                    <th>Patient#</th>
+                    <th>E-mail</th>
+                    <th>Name / Last Name</th>
+                    <th>Sex</th>
+                    <th>Age</th>
+                    <th>Problem</th>
+                    <th>SSN</th>
+                    <th>Amount Due$</th>				
+                </tr>                                   
+                </thead>
+                    {{#each users}}
+                        <tr>
+                            <th scope="row" class='num'></th>
+                            <td>{{_id}}
+                            </td>
+                            <td>{{name}} {{lastName}}</td>
+                            <td>{{sex}}</td>
+                            <td>{{age}}</td>
+                            <td>{{symptoms}}</td>
+                            <td>{{ssn}}</td>
+                            <td class ="price">{{amount}}</td>
+                            <td><a href="/user/{{_id}}/delete">Delete</a>         
+                        </tr>
+                    {{/each}}
+        </table> 
+        </div>                          
+	</div>                               
+</div>
+</div>
+<!-- /.row -->
+
+<!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<script>
+    $("#add").click(function(){
+        $(".myPatient").toggle();
+    });
+    $("#update").click(function(){
+        $(".myUpdate").toggle();
+    });
+    var rows = document.getElementById('allpatients').getElementsByTagName("tr").length;
+    var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+
+    for (var i = 1, len = rows.length; i < len; i++){
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+    }
+    // http://www.coderanch.com/t/520876/java/java/count-instances-word-String 
+    //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript    
+</script>
+
+    

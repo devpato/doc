@@ -28,6 +28,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./public/css/datepicker.css">
+
     <style>
         #sidebars{
             display: none;
@@ -53,6 +55,9 @@
         }
         #divname{
             height: 250px;
+        }
+        #allAppointments{
+            display:none;
         }
     </style>
 
@@ -175,8 +180,10 @@
                     </ul>
                 </li>
             </ul>
+
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     {{{body}}}
+
     <!-- /#wrapper -->
 
     <!-- jQuery -->
@@ -307,9 +314,9 @@
                   });
                 
                   var jobCount = $('.results tbody tr[visible="true"]').length;
-                    $('.counters').text(jobCount + ' patients');
+                  
              /*----------*/
-                function calculateSum() {
+                /*function calculateSum() {
                     var sum = 0;
                     $(".price").each(function() {
                         var value = parseFloat($(this).text());
@@ -320,14 +327,14 @@
                     return sum;
                 }
                 
-                $("#sumatoria").text(calculateSum());                
+                $("#sumatoria").text(calculateSum());    */            
         });
     </script>
     <!-- Morris Charts JavaScript -->
     <script src="./public/js/plugins/morris/raphael.min.js"></script>
     <script src="./public/js/plugins/morris/morris.min.js"></script>
     <script src="./public/js/plugins/morris/morris-data.js"></script>
-
-</body>
+    <script src="./public/js/datepicker.js"></script>
+    </body>
 
 </html>
