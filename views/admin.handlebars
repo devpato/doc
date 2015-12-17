@@ -70,7 +70,7 @@
                                         <i class="fa fa-usd fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                       <div id="sumatoria" class="huge"></div>
+                                       <div id="sumatoria" class="huge">5</div>
                                         
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                        <i class="fa fa-medkit fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">124</div>
@@ -111,21 +111,32 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
+                                        <i class="fa fa-clock-o fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Appointment today!</div>
+                                        <div class="huge appointments"></div>
+                                        <div>Appointments today!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#" id="showApp">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <span class="pull-left showDetails">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-down showDetails"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
+                              <table id="allAppointments" class="table table-hover table-bordered table-responsive" border="1">
+                                    <thead>
+                                        <tr>
+                                          <th>#</th>
+                                          <th class="col-md-5 col-xs-5">Email</th>
+                                          <th class="col-md-4 col-xs-4">Date</th>
+                                          <th class="col-md-3 col-xs-3">Time</th>
+                                        </tr>                                   
+                                     </thead>
+                            </table>
+                            </table>            
                         </div>
                     </div>
                 </div>
@@ -133,7 +144,7 @@
                     <div class="col-lg-9">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart<i class='iconsx glyphicon glyphicon-minus pull-right'></i></h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Bar Amount Due Chart<i class='iconsx glyphicon glyphicon-minus pull-right'></i></h3>
                             </div>
                             <div class="panel-body">
                                 <div  class="col-sm-6 text-center">
@@ -164,22 +175,55 @@
                     <div class="col-lg-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-fw fa-calendar"></i> Calendar<i class='iconsxy glyphicon glyphicon-minus pull-right'></i></h3>
+                                <h3 class="panel-title"><i class="fa fa-fw fa-calendar"></i> Quick Appointment<i class='iconsxy glyphicon glyphicon-minus pull-right'></i></h3>
                             </div>
                             <div class="panel-body">
-                                <div id="upto-calendar-container-M4LO" class="upto-calendar-plugin escondery"><script>!function(c,b,a){function d(h){var e=document.getElementById("upto-calendar-container-"+c),f=document.createElement("SCRIPT"),g="https://upto.com/js/plugin.js";f.onreadystatechange=function(){if(f.readyState==="loaded"||f.readyState==="complete"){f.onreadystatechange=null;h()}};f.onload=function(){h()};f.setAttribute("src",g);e.parentNode.insertBefore(f,e)}d(function(){upto.init(c)})}("M4LO");</script></div>
-                        </div>
+                             
+                                <div class="container" id="sandbox-container">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <span class="input-group-addon">Date</span>
+                                        <input class="input-sm form-control" name="dateApp" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                         <center><span class="input-group-addon">
+                         <select name="appPatient" id="appPatient">
+                          <option>Existing patients</option>
+                         </select>
+                         Time   
+                        <select name="hour">
+                                <option>20</option> 
+                                <option>19</option> 
+                                <option>18</option> 
+                                <option>17</option> 
+                                <option>16</option> 
+                                <option>15</option> 
+                                <option>14</option> 
+                                <option>13</option> 
+                                <option>12</option> 
+                                <option>11</option> 
+                                <option>10</option> 
+                                <option>9</option>                                 
+                            </select>
+                            <select name="minutes">
+                                <option>45</option> 
+                                <option>30</option> 
+                                <option>15</option> 
+                                <option>00</option>                                  
+                            </select>                               
+                       </span>
+                       </center>
+                       <br>
+                       <button id="quickApp" class="btn btn-danger">Make Appointment</button> 
                                 <div class="list-group">
                                    <div class="calendar-container">
-		
-		                </div>
-                                   
+		                          </div>
                                 </div>
                                 <div class="text-right">
                                     <a href="calendar.html">View Full Calendar <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
-                            </div>
-                        </div>
+                         </div>
+                    </div>
                     
                     <div class="col-lg-4">
                         <div class="panel panel-default">
@@ -196,20 +240,13 @@
                                  <table id="allpatients" class="table table-hover table-bordered results" border="1">
                                     <thead>
                                         <tr>
-                                          <th>Patient#</th>
+                                          <th>#</th>
                                           <th class="col-md-5 col-xs-5">Name / Last Name</th>
                                           <th class="col-md-4 col-xs-4">Problem</th>
                                           <th class="col-md-3 col-xs-3">Amount Due$</th>
                                         </tr>                                   
                                      </thead>
-                                     {{#each users}}
-                                         <tr>
-                                          <th scope="row" class='num'></th>
-                                          <td>{{name}} {{lastName}}</td>
-                                          <td>{{symptoms}}</td>
-                                          <td class ="price">{{amount}}</td>
-                                        </tr>
-                                      {{/each}}  
+                                    
                                 </table>                           
                                 </div>                               
                                 <div class="text-right">
@@ -229,156 +266,200 @@
         <!-- /#page-wrapper -->
         
     </div>
-        <script>
-			var rows = document.getElementById('allpatients').getElementsByTagName("tr").length;
-            var table = document.getElementsByTagName('table')[0],
-            rows = table.getElementsByTagName('tr'),
-            text = 'textContent' in document ? 'textContent' : 'innerText';
-
-            for (var i = 1, len = rows.length; i < len; i++){
-                rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+<script>
+    var rows = document.getElementById('allpatients').getElementsByTagName("tr").length;
+    var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+    var totalAmount = 0;
+    for (var i = 1, len = rows.length; i < len; i++){
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+    }
+    $.get('http://localhost:2000/admin/data',function(data){
+        for(var i =0;i<data.length;i++){
+            $("#allpatients").append("<tr><th scope='row' class='num'>"+i+"</th>"+ "<td>"+data[i].name+" "+ data[i].lastName +"</td>" + "<td>" + 
+            data[i].symptoms +"</td>"+"<td>"+data[i].amount +"</td>" +"</tr>");
+            totalAmount += data[i].amount;  
+            $('#appPatient').append("<option>"+data[i]._id+"</option>");                     
+        }
+        $('.counters').text(data.length+" patients");
+        totalAmoun = parseFloat(totalAmount);
+        $('#sumatoria').text(totalAmount);
+        $('.showDetails').click(function(){
+            $('#allAppointments').toggle();
+        });
+        console.log(data);
+        var highest,second, third;
+        var highestL,secondL, thirdL;
+        var fever = [];
+        var flu = []
+        var allergies = [];
+        var headeache = [];
+        var stomachache = [];
+        var STD = [];
+        var others = [];
+        
+            for(var i = 0; i<data.length;i++){
+            if(data[i].symptoms == 'flu'){
+                flu.push(data[i]);
             }
-            $.get('http://localhost:2000/admin/data',function(data){
-                console.log(data);
-                var highest,second, third;
-                var highestL,secondL, thirdL;
-                var fever = [];
-                var flu = []
-                var allergies = [];
-                var headeache = [];
-                var stomachache = [];
-                var STD = [];
-                var others = [];
-                
-                 for(var i = 0; i<data.length;i++){
-                   if(data[i].symptoms == 'flu'){
-                       flu.push(data[i]);
-                   }
-                   else if(data[i].symptoms == 'allergies'){
-                      allergies.push(data[i]); 
-                   }
-                   else if(data[i].symptoms == 'fever'){
-                      fever.push(data[i]); 
-                   }
-                   else if(data[i].symptoms == 'headeache'){
-                      headeache.push(data[i]); 
-                   }
-                   else if(data[i].symptoms == 'stomachache'){
-                      stomachache.push(data[i]); 
-                   }
-                   else if(data[i].symptoms == 'STD'){
-                      STD.push(data[i]); 
-                   }
-                   else{
-                      others.push(data[i]); 
-                   }
-                }
-                console.log(flu.length);
-               flu={
-                        name:"flu",
-                        length: flu.length
-                    };
-                allergies={
-                        name:"allergies",
-                        length: allergies.length
-                    };
-                fever={
-                        name:"fever",
-                        length: fever.length
-                    };
-                headache={
-                    name:"headeache",
-                    length: headeache.length
-                };
-                stomachache={
-                        name:"stomachache",
-                        length: stomachache.length
-                    };
-                STD={
-                        name:"STD",
-                        length: STD.length
-                    };
-                others={
-                        name:"others",
-                        length: others.length
-                };           
-                var all = [];
-                all.push(flu);
-                all.push(allergies);
-                all.push(fever);
-                all.push(headache);
-                all.push(stomachache);//
-                all.push(STD);//
-                all.push(others);//
-                //all.sort();
-                
-                all.sort(function(a,b){
-                    return a.length - b.length;
-                });
-              for(var i = 0;i<all.length;i++){
-                  console.log(all[i]);
-              }
-             console.log("******************");
-             highest = all[6].length;
-             highestL = all[6].name;
-             third = all[4].length;
-             thirdL = all[4].name;
-             console.log(all[0].name);
-             second= all[5].length;
-             secondL = all[5].name;
-                // Donut Chart
-                Morris.Donut({
-                    element: 'morris-donut-chart',
-                    data: [{
-                        label: highestL,
-                        value: highest
-                    }, {
-                        label: secondL,
-                        value: second
-                    }, {
-                        label: thirdL,
-                        value: third
-                    }],
-                    colors: [
-                        '#cc3300',
-                        '#0066cc',
-                        '#ffcc00',
-                    ],
-                    resize: true
-                });
-            });
-
-            // http://www.coderanch.com/t/520876/java/java/count-instances-word-String 
-            //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript    
-		</script>
-        <script>
-            //pasar los pacientes y ponerlos en array 
-            $.get( "http://localhost:2000/admin/data", function( data ) {
-                data = data.map(function(datum) {
-            
-            if(datum.amount) {
-                return {
-                    item: datum.name,
-                    amount: datum.amount
-                };
+            else if(data[i].symptoms == 'allergies'){
+                allergies.push(data[i]); 
             }
-            return {
-                item: datum.name,
-                amount:0
+            else if(data[i].symptoms == 'fever'){
+                fever.push(data[i]); 
             }
-            
-        });     
-        new Morris.Bar({
-        element: 'divname',
-        data: data,
-        xkey: 'item',
-        ykeys: ['amount'],
-        labels: ['Amount due'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        resize: true
+            else if(data[i].symptoms == 'headeache'){
+                headeache.push(data[i]); 
+            }
+            else if(data[i].symptoms == 'stomachache'){
+                stomachache.push(data[i]); 
+            }
+            else if(data[i].symptoms == 'STD'){
+                STD.push(data[i]); 
+            }
+            else{
+                others.push(data[i]); 
+            }
+        }
+        console.log(flu.length);
+        flu={
+                name:"flu",
+                length: flu.length
+            };
+        allergies={
+                name:"allergies",
+                length: allergies.length
+            };
+        fever={
+                name:"fever",
+                length: fever.length
+            };
+        headache={
+            name:"headeache",
+            length: headeache.length
+        };
+        stomachache={
+                name:"stomachache",
+                length: stomachache.length
+            };
+        STD={
+                name:"STD",
+                length: STD.length
+            };
+        others={
+                name:"others",
+                length: others.length
+        };           
+        var all = [];
+        all.push(flu);
+        all.push(allergies);
+        all.push(fever);
+        all.push(headache);
+        all.push(stomachache);//
+        all.push(STD);//
+        all.push(others);//
+        //all.sort();
+        
+        all.sort(function(a,b){
+            return a.length - b.length;
+        });
+        for(var i = 0;i<all.length;i++){
+            console.log(all[i]);
+        }
+        console.log("******************");
+        highest = all[6].length;
+        highestL = all[6].name;
+        third = all[4].length;
+        thirdL = all[4].name;
+        console.log(all[0].name);
+        second= all[5].length;
+        secondL = all[5].name;
+        // Donut Chart
+        Morris.Donut({
+            element: 'morris-donut-chart',
+            data: [{
+                label: highestL,
+                value: highest
+            }, {
+                label: secondL,
+                value: second
+            }, {
+                label: thirdL,
+                value: third
+            }],
+            colors: [
+                '#cc3300',
+                '#0066cc',
+                '#ffcc00',
+            ],
+            resize: true
+        });
     });
 
-        </script>
- 
+    // http://www.coderanch.com/t/520876/java/java/count-instances-word-String 
+    //http://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript    
+</script>
+<script>         
+    function myColors(){
+            var colors = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if(colors !== "#FFFFFF"){
+            return colors;
+            }
+            else{
+                console.log("white found");
+                myColors();
+            }   
+    }
+    $.get( "http://localhost:2000/admin/data", function( data ) {
+        data = data.map(function(datum) {
+        
+        if(datum.amount) {
+            return {
+                item: datum.name,   
+                amount: datum.amount
+            };
+        }
+        return {
+            item: datum.name,
+            amount:0
+        }
+        
+        });    
+        new Morris.Bar({
+            element: 'divname',
+            data: data,
+            xkey: 'item',
+            ykeys: ['amount'],
+            labels: ['Amount due'],
+            barRatio: 0.4,
+            xLabelAngle: 35,
+            hideHover: 'auto',
+            barColors: function (row, series, type) {
+                for(var i = 0; i<data.length;i++){
+                    if(data[i]){
+                        return myColors();
+                    } 
+                }
+            },
+            resize: true
+        });        
+    });
+    $.get( "http://localhost:2000/admin/appointment", function( data ) {
+        console.log(data[0].date);
+        var date = new Date().toLocaleDateString()
+        var totalApp = 0;
+        var counter = 0;
+        for(var i=0;i<data.length;i++){
+            if(data[i].appointmemt.date === date){
+            totalApp += 1;
+            counter++
+            $("#allAppointments").append("<tr>"+ "<th scope='row' class='num'>"+counter+"</th>" +
+            "<td>"+data[i]._id+"</td>" + "<td>"+data[i].appointmemt.date +"</td>" + "<td>" + 
+            data[i].appointmemt.time +"</td></tr>");  
+            }
+        }
+        $(".appointments").text(totalApp); 
+    });
+</script>
+            
