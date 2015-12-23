@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 mongoose.connect('mongodb://pevargas:Policia9@ds061984.mongolab.com:61984/users');
+
 	var Schema = new mongoose.Schema({
 		_id    : String,
 		name: String,
@@ -18,19 +19,27 @@ mongoose.connect('mongodb://pevargas:Policia9@ds061984.mongolab.com:61984/users'
 		age: String,
 		sex: String,
 		symptoms: String,
-		ssn:'String',
+		ssn: String,
 		amount: Number
 		
 	});
-	var SchemaApp = new mongoose.Schema({
-		_id    : String,
-		appointment:{
+    var SchemaApp = new mongoose.Schema({
+		_id : String,
+		time:[{
 			date: String,
-			time: String
-		}			
+			hour: String
+		}]			
+	});
+	var CitaApp = new mongoose.Schema({
+		_id : String,
+		time:[{
+			date: String,
+			hour: String
+		}]			
 	});
 var user = mongoose.model('patients', Schema);
-var appointment = mongoose.model('appointments', SchemaApp);
+var appointment = mongoose.model('appointment', SchemaApp);
+var citas = mongoose.model('citas', CitaApp);
 /***********************************************/
 
 app.engine('handlebars',
@@ -59,7 +68,7 @@ app.get('/admin/data',function(req,res){
 	});
 });
 app.get('/admin/appointment',function(req,res){
-	appointment.find(function(err,docs){
+	citas.find(function(err,docs){
 		res.send(docs);//pasing only the object that i want
 	});
 });
@@ -76,13 +85,45 @@ app.get('/user/:id/delete', function(req, res){
 		else    res.redirect('/patients');
 	});
 });
+app.post('/cita',function(req,res){
+  var time = req.body.hour +":"+req.body.minutes;
+  var date = req.body.dateApp;
+  var patient = req.body.appPatient;
+  var flag = true;
+  citas.find(function(err,docs){
+        for(var i = 0;i<docs.length;i++){
+            for(var j = 0;j<docs[i].time.length;j++){
+                if((time === docs[i].time[j].hour) && (date === docs[i].time[j].date)){
+                    console.log(time+" vs "+docs[i].time[j].hour);
+                    console.log(date+" vs "+docs[i].time[j].date);
+                    flag = false;                        
+                 }
+            }
+        }
+        if(flag){
+            citas.update({"_id": patient},{
+                    $push:{
+                        "time":{
+                            "hour": time,
+                            "date": date
+                        }
+                    }
+                },function(err){
+                    if(err) console.log(err);
+                });
+        }
+        res.redirect("/admin");
+    });
+  //http://stackoverflow.com/questions/17288439/mongodb-how-to-insert-additional-object-into-object-collection
+});
+/**************************************************/
 app.post('/appointment', function(req, res){
-	new appoitment({
+	new appointment({
 		_id    : req.body.email,
-		appointmemt:{
-			date: req.body.date,
-			time: req.body.time	
-		}		
+		time:[{//appointment
+			//date: req.body.date,
+			hour: req.body.time	//time
+		}]		
 	}).save(function(err, doc){
 		if(err) res.json(err);
 		else    res.redirect('/patients');
@@ -100,6 +141,14 @@ app.post('/new', function(req, res){
 		amount: req.body.amount				
 	}).save(function(err, doc){
 		if(err) res.json(err);
+	});
+    new citas({
+        _id: req.body.email,
+        time:[
+            
+        ]
+    }).save(function(err, doc){
+		if(err) res.json(err);
 		else    res.redirect('/patients');
 	});
 });
@@ -114,45 +163,46 @@ app.post('/update', function(req, res){
 	var myAmount = req.body.amountU;
 	
 	console.log(new Date().toLocaleDateString()+" "+ new Date().toLocaleTimeString());
+	
 	user.findById(req.body.emailU, function(err, user) {
-	if (err) throw err;
-	
-	// change the age
-	if(myID.length>0){ 
-		if(myName.length>0){ 
-			user.name = req.body.nameU;
-		}
-		if(myLastName.length>0){ 
-			user.lastname = req.body.lastNameU;
-		}
-		if(myAge.length>0){ 
-			user.age = req.body.ageU;
-		}
-		if(mySex.length>0){ 
-			user.sex = req.body.sexU;
-		}
-		if(mySymptoms.length>0){ 
-			user.symptoms = req.body.symptomsU;
-		}
-		if(mySSN.length>0){ 
-			user.SSN = req.body.ssnU;
-		}
-		if(myAmount.length>0){ 
-			user.amount = req.body.amountU;
-		}
-	}
-	
-	console.log(myName.length);
-	user.lastName = req.body.lastNameU;
-	// save the user
-	user.save(function(err) {
 		if (err) throw err;
-		res.redirect("/patients");
-		console.log('User successfully updated!');
-	});
-
+		
+		// change the info
+		if(myID.length>0){ 
+			if(myName.length>0){ 
+				user.name = req.body.nameU;
+			}
+			if(myLastName.length>0){ 
+				user.lastname = req.body.lastNameU;
+			}
+			if(myAge.length>0){ 
+				user.age = req.body.ageU;
+			}
+			if(mySex.length>0){ 
+				user.sex = req.body.sexU;
+			}
+			if(mySymptoms.length>0){ 
+				user.symptoms = req.body.symptomsU;
+			}
+			if(mySSN.length>0){ 
+				user.SSN = req.body.ssnU;
+			}
+			if(myAmount.length>0){ 
+				user.amount = req.body.amountU;
+			}
+		}
+		
+		console.log(myName.length);
+		user.lastName = req.body.lastNameU;
+		// save the user
+		user.save(function(err) {
+			if (err) throw err;
+			res.redirect("/patients");
+			console.log('User successfully updated!');
+		});
 	});
 });
+/**************************************************/
 app.use('/public', express.static('public'));
 
 /*********************************************************************/
