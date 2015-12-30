@@ -37,9 +37,10 @@ mongoose.connect('mongodb://pevargas:Policia9@ds061984.mongolab.com:61984/users'
 			hour: String
 		}]			
 	});
-var user = mongoose.model('patients', Schema);
-var appointment = mongoose.model('appointment', SchemaApp);
+
+
 var citas = mongoose.model('citas', CitaApp);
+var user = mongoose.model('patients', Schema);
 /***********************************************/
 
 app.engine('handlebars',
@@ -72,9 +73,17 @@ app.get('/admin/appointment',function(req,res){
 		res.send(docs);//pasing only the object that i want
 	});
 });
-app.get('/calendar',function(req,res){
-	res.render('calendar',{layout: 'admin.handlebars'});
+app.get('/calendar/appointment',function(req,res){
+	citas.find(function(err,docs){
+		res.send(docs);//pasing only the object that i want
+	});
 });
+app.get('/calendar',function(req,res){
+	citas.find(function(err,docs){
+		res.render('calendar',{layout:'admin.handlebars',users : docs});
+	});
+});
+
 app.get('/profile',function(req,res){
 	res.render('profile',{layout: 'admin.handlebars'});
 });

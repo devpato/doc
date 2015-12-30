@@ -234,7 +234,7 @@
                                     </div>
                                     <span class="counter pull-right"></span>
                                     
-                                 <table id="allpatients" class="table table-hover table-bordered results" border="1">
+                               <table id="allpatients" class="table table-hover table-bordered results" border="1">
                                     <thead>
                                         <tr>
                                           <th>#</th>
@@ -242,8 +242,7 @@
                                           <th class="col-md-4 col-xs-4">Problem</th>
                                           <th class="col-md-3 col-xs-3">Amount Due$</th>
                                         </tr>                                   
-                                     </thead>
-                                    
+                                     </thead>                                    
                                 </table>                           
                                 </div>                               
                                 <div class="text-right">
@@ -269,13 +268,16 @@
     for (var i = 1, len = rows.length; i < len; i++){
         rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
     }*/
+    var totalAmount = 0;
     $.get('http://localhost:2000/admin/data',function(data){
-        for(var i =0;i<data.length;i++){
-            $("#allpatients").append("<tr><th scope='row' class='num'>"+i+"</th>"+ "<td>"+data[i].name+" "+ data[i].lastName +"</td>" + "<td>" + 
+         for(var i = 0;i<data.length;i++){
+            $('#allpatients').append("<tr><th scope='row' class='num'>"+i+"</th>"+ "<td>"+data[i].name+" "+ data[i].lastName +"</td>" + "<td>" + 
             data[i].symptoms +"</td>"+"<td>"+data[i].amount +"</td>" +"</tr>");
             totalAmount += data[i].amount;  
-            $('#appPatient').append("<option>"+data[i]._id+"</option>");                     
-        }
+             $('#appPatient').append("<option>"+data[i]._id+"</option>");
+            console.log(data[i]._id);             
+        }    
+        
         $('.counters').text(data.length+" patients");
         totalAmount = parseFloat(totalAmount);
         $('#sumatoria').text(totalAmount);
@@ -406,6 +408,7 @@
             }   
     }
     $.get( "http://localhost:2000/admin/data", function( data ) {
+       
         data = data.map(function(datum) {
         
         if(datum.amount) {
@@ -442,7 +445,7 @@
     
     var superdata=[];
     $.get( "http://localhost:2000/admin/appointment", function( data ) {
-        for(var x = 0;x<data.length;x++){
+       for(var x = 0;x<data.length;x++){
             superdata.push(data[x]);
         }
         var date = new Date().toLocaleDateString()
