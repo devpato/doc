@@ -85,6 +85,7 @@ app.get('/user/:id/delete', function(req, res){
 		else    res.redirect('/patients');
 	});
 });
+/***************************************** */
 app.post('/cita',function(req,res){
   var time = req.body.hour +":"+req.body.minutes;
   var date = req.body.dateApp;
