@@ -169,52 +169,50 @@
                     </div>
                 
                 <!-- /.row -->
-
-                
-                    
                     <div class="col-lg-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-fw fa-calendar"></i> Quick Appointment<i class='iconsxy glyphicon glyphicon-minus pull-right'></i></h3>
                             </div>
-                            <div class="panel-body">
-                             
-                                <div class="container" id="sandbox-container">
-                                    <div class="input-daterange input-group" id="datepicker">
-                                        <span class="input-group-addon">Date</span>
-                                        <input class="input-sm form-control" name="dateApp" type="text">
+                            <form action="/cita" method="POST">
+                                <div class="panel-body">
+                                    <div class="container" id="sandbox-container">
+                                        <div class="input-daterange input-group" id="datepicker">
+                                            <span class="input-group-addon">Date</span>
+                                            <input class="input-sm form-control" id="dateApp" name="dateApp" type="text">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                         <center><span class="input-group-addon">
-                         <select name="appPatient" id="appPatient">
-                          <option>Existing patients</option>
-                         </select>
-                         Time   
-                        <select name="hour">
-                                <option>20</option> 
-                                <option>19</option> 
-                                <option>18</option> 
-                                <option>17</option> 
-                                <option>16</option> 
-                                <option>15</option> 
-                                <option>14</option> 
-                                <option>13</option> 
-                                <option>12</option> 
-                                <option>11</option> 
-                                <option>10</option> 
-                                <option>9</option>                                 
-                            </select>
-                            <select name="minutes">
-                                <option>45</option> 
-                                <option>30</option> 
-                                <option>15</option> 
-                                <option>00</option>                                  
-                            </select>                               
-                       </span>
-                       </center>
-                       <br>
-                       <button id="quickApp" class="btn btn-danger">Make Appointment</button> 
+                                <center><span class="input-group-addon">
+                                <select name="appPatient" id="appPatient">
+                                    <option >Existing patients</option>
+                                </select>
+                                Time   
+                                <select name="hour" id="hours">
+                                        <option>20</option> 
+                                        <option>19</option> 
+                                        <option>18</option> 
+                                        <option>17</option> 
+                                        <option>16</option> 
+                                        <option>15</option> 
+                                        <option>14</option> 
+                                        <option>13</option> 
+                                        <option>12</option> 
+                                        <option>11</option> 
+                                        <option>10</option> 
+                                        <option>9</option>                                 
+                                    </select>
+                                    <select name="minutes" id="minutes">
+                                        <option>46</option> 
+                                        <option>30</option> 
+                                        <option>15</option> 
+                                        <option>00</option>                                  
+                                    </select>                               
+                                </span>
+                                </center>
+                                <br>
+                                <button id="quickApp" class="btn btn-danger">Make Appointment</button>
+                            </form> 
                                 <div class="list-group">
                                    <div class="calendar-container">
 		                          </div>
@@ -223,8 +221,7 @@
                                     <a href="calendar.html">View Full Calendar <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                          </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -254,27 +251,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                   
                 </div>
                 <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
         
     </div>
 <script>
-    var rows = document.getElementById('allpatients').getElementsByTagName("tr").length;
+    /*var rows = document.getElementById('allpatients').getElementsByTagName("tr").length;
     var table = document.getElementsByTagName('table')[0],
     rows = table.getElementsByTagName('tr'),
     text = 'textContent' in document ? 'textContent' : 'innerText';
     var totalAmount = 0;
     for (var i = 1, len = rows.length; i < len; i++){
         rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
-    }
+    }*/
     $.get('http://localhost:2000/admin/data',function(data){
         for(var i =0;i<data.length;i++){
             $("#allpatients").append("<tr><th scope='row' class='num'>"+i+"</th>"+ "<td>"+data[i].name+" "+ data[i].lastName +"</td>" + "<td>" + 
@@ -283,7 +277,7 @@
             $('#appPatient').append("<option>"+data[i]._id+"</option>");                     
         }
         $('.counters').text(data.length+" patients");
-        totalAmoun = parseFloat(totalAmount);
+        totalAmount = parseFloat(totalAmount);
         $('#sumatoria').text(totalAmount);
         $('.showDetails').click(function(){
             $('#allAppointments').toggle();
@@ -299,7 +293,7 @@
         var STD = [];
         var others = [];
         
-            for(var i = 0; i<data.length;i++){
+        for(var i = 0; i<data.length;i++){
             if(data[i].symptoms == 'flu'){
                 flu.push(data[i]);
             }
@@ -322,6 +316,7 @@
                 others.push(data[i]); 
             }
         }
+        
         console.log(flu.length);
         flu={
                 name:"flu",
@@ -356,10 +351,9 @@
         all.push(allergies);
         all.push(fever);
         all.push(headache);
-        all.push(stomachache);//
-        all.push(STD);//
-        all.push(others);//
-        //all.sort();
+        all.push(stomachache);
+        all.push(STD);
+        all.push(others);
         
         all.sort(function(a,b){
             return a.length - b.length;
@@ -445,21 +439,45 @@
             resize: true
         });        
     });
+    
+    var superdata=[];
     $.get( "http://localhost:2000/admin/appointment", function( data ) {
-        console.log(data[0].date);
+        for(var x = 0;x<data.length;x++){
+            superdata.push(data[x]);
+        }
         var date = new Date().toLocaleDateString()
         var totalApp = 0;
         var counter = 0;
         for(var i=0;i<data.length;i++){
-            if(data[i].appointmemt.date === date){
-            totalApp += 1;
-            counter++
-            $("#allAppointments").append("<tr>"+ "<th scope='row' class='num'>"+counter+"</th>" +
-            "<td>"+data[i]._id+"</td>" + "<td>"+data[i].appointmemt.date +"</td>" + "<td>" + 
-            data[i].appointmemt.time +"</td></tr>");  
+            for(var j = 0;j<data[i].time.length;j++){
+                if(data[i].time[j].date === date){
+                    totalApp += 1;
+                    counter++
+                    $("#allAppointments").append("<tr>"+ "<th scope='row' class='num'>"+counter+"</th>" +
+                    "<td>"+data[i]._id+"</td>" + "<td>"+data[i].time[j].date +"</td>" + "<td>" + 
+                    data[i].time[j].hour +"</td></tr>");   
+                }                     
             }
-        }
+        }      
         $(".appointments").text(totalApp); 
+    });
+
+    $("#quickApp").click(function(){
+        var hour = "";
+        var minutes = "";
+        var h = document.getElementById("hours");
+        hour = h.options[h.selectedIndex].text;
+        var m = document.getElementById("minutes");
+        minutes = m.options[m.selectedIndex].text;
+        var time = hour+":"+minutes;
+        var date = $("#dateApp").val();
+        for(var i=0;i<superdata.length;i++){
+            for(var j = 0;j<superdata[i].time.length;j++){
+                if(superdata[i].time[j].hour === time && superdata[i].time[j].date === date){
+                    alert("The appointment with the follwing time "+time+" at the follwing day "+date+" already exists");
+                }
+            }             
+        }   
     });
 </script>
             
