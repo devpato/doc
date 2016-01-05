@@ -22,6 +22,9 @@
             #allAppointments{
                 display: inline;
             }
+            .myUpdate{
+                display:none;
+            }
         </style>    
         <div  class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="mybar" class="nav navbar-nav side-nav">
@@ -169,7 +172,7 @@
                     <br>
                     <div  class='col-xs-3'>
                         <button class='btn btn-warning' id="add">Add Patient</button>
-                        <form class='myPatient' action="/new" method="POST">
+                        <form class='myPatient' action="/newPatient" method="POST">
                             <label for="email">Email: </label>
                             <input type="email" name="email" /><span class="star">*</span><br />
                             <label for="name">Name: </label>
@@ -191,10 +194,36 @@
                     </div>
                     <div  class='col-xs-3'>
                         <button class='btn btn-warning' id="update">Update Appoinment</button>
-                        <form  class='myUpdate' action="/update" method="POST">                            
+                        <form  class='myUpdate' action="/updateApp" method="POST">                            
                             <label for="email">Email: </label>
                             <input type="email" name="emailU" /><span class="star">*</span><br />
-                            
+                            <div class="container" id="sandbox-container">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <span class="input-group-addon">Date</span>
+                                    <input class="input-sm form-control" id="dateApp" name="appDate" type="text">
+                                </div>
+                            </div>
+                            <select name="hour" id="hours">
+                                <option>20</option> 
+                                <option>19</option> 
+                                <option>18</option> 
+                                <option>17</option> 
+                                <option>16</option> 
+                                <option>15</option> 
+                                <option>14</option> 
+                                <option>13</option> 
+                                <option>12</option> 
+                                <option>11</option> 
+                                <option>10</option> 
+                                <option>9</option>                                 
+                            </select>
+                            <select name="minutes" id="minutes">
+                                <option>45</option> 
+                                <option>30</option> 
+                                <option>15</option> 
+                                <option>00</option>                                  
+                            </select>
+                            <button class='btn btn-warning'>Update</button>            
                         </form>
                     </div>
                 </div>
@@ -240,7 +269,7 @@
                 if(data[i].time[j].date === date){
                     totalApp += 1;
                     counter++
-                    $("#allAppointments").append("<tr>"+ "<th scope='row' class='num'>"+counter+"</th>" +
+                    $("#allAppointments").append("<tr>"+ "<th scope='row' class='numx'>"+counter+"</th>" +
                     "<td>"+data[i]._id+"</td>" + "<td>"+data[i].time[j].date +"</td>" + "<td>" + 
                     data[i].time[j].hour +"</td></tr>");   
                 }                     

@@ -162,6 +162,29 @@ app.post('/new', function(req, res){
 		else    res.redirect('/patients');
 	});
 });
+app.post('/newPatient', function(req, res){
+	new user({
+		_id    : req.body.email,
+		name: req.body.name,
+		lastname: req.body.lastName,
+		age   : req.body.age,
+		sex: req.body.sex,
+		symptoms: req.body.symptoms,
+		ssn: req.body.ssn,
+		amount: req.body.amount				
+	}).save(function(err, doc){
+		if(err) res.json(err);
+	});
+    new citas({
+        _id: req.body.email,
+        time:[
+            
+        ]
+    }).save(function(err, doc){
+		if(err) res.json(err);
+		else    res.redirect('/calendar');
+	});
+});
 app.post('/update', function(req, res){
 	var myID = req.body.emailU;
 	var myName = req.body.nameU;
@@ -210,6 +233,51 @@ app.post('/update', function(req, res){
 			res.redirect("/patients");
 			console.log('User successfully updated!');
 		});
+	});
+});
+app.post('/updateApp', function(req, res){
+	var myID = req.body.emailU;
+    var date = req.body.appDate;
+    var hour = req.body.hour;
+    var minutes = req.body.minutes;
+    var myTime = hour+":"+minutes;
+    var flag = false;
+    var index;
+	citas.find(function(err, docs) {
+		if (err) throw err;		
+		// change the info
+		if(myID.length>0){ 
+            for(var i = 0;i<docs.length;i++){
+                if(myID === docs[i]._id){
+                    console.log(i);
+                    index = i;
+                    flag = true;
+                 }
+             }
+        }
+        console.log(index);
+		if(flag){
+            citas.update({"_id": myID},{
+                $pop:{
+                    "time":1                     
+                    }
+                }
+                ,function(err){
+                    if(err) console.log(err);
+                });
+                
+                citas.update({"_id": myID},{
+                    $push:{
+                        "time":{
+                            "hour": myTime,
+                            "date": date
+                         }
+                    }
+                },function(err){
+                    if(err) console.log(err);
+                });
+        }
+        res.redirect("/calendar");
 	});
 });
 /**************************************************/
