@@ -112,7 +112,7 @@ $(document).ready(function() {
     $("#ok").click(function(){
         var user = $("#username").val();
         var pass = $("#password").val();
-        var href = "admin.html";
+        var href = "/admin";
         if(user === "doctor" && pass==="admin"){
             window.location.replace(href);
         }
@@ -187,7 +187,6 @@ $(document).ready(function() {
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
 
         <!-- Wrapper for Slides -->
@@ -195,13 +194,6 @@ $(document).ready(function() {
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('http://addvalueconsultancy.com/img/picture3.jpg');"></div>
-                <div class="carousel-caption">
-                    
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://xolmedrcm.com/wp-content/uploads/2013/01/medical-billing-banner.jpg');"></div>
                 <div class="carousel-caption">
                     
                 </div>

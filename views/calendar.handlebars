@@ -29,23 +29,23 @@
         <div  class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="mybar" class="nav navbar-nav side-nav">
                     <li>
-                        <a href="admin.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#morris-area-chart"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
-                    </li>
-                    <li class="active">
-                        <a href="calendar.html"><i class="fa fa-fw fa-table"></i>Calendar</a>
+                        <a href="/admin#morris-area-chart"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
                     </li>
                     <li>
-                        <a href="#allpatients"><i class="fa fa-fw fa-edit"></i>Patients</a>
+                        <a href="/calendar"><i class="fa fa-fw fa-table"></i>Calendar</a>
+                    </li>
+                    <li  class="active">
+                        <a href="/patients"><i class="fa fa-fw fa-edit"></i>Patients</a>
                     </li>
                    <li>
-                        <a href="index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="/"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                     
                 </ul>
-            </div>
+            </div>s
             <!-- /.navbar-collapse -->
         </nav>
 
@@ -260,22 +260,28 @@
          for(var x = 0;x<data.length;x++){
             superdata.push(data[x]);
         }
-        console.log(superdata.length);
-        var date = new Date().toLocaleDateString()
+        console.log("pacientes con citas" + superdata.length);
+        var date = new Date().toLocaleDateString();
+        if(parseInt(date.substr(0, date.indexOf('/'))) < 10)  {
+            console.log("less than 9");
+            date = "0"+date;
+        }   
         var totalApp = 0;
         var counter = 0;
         for(var i=0;i<data.length;i++){
             for(var j = 0;j<data[i].time.length;j++){
-                if(data[i].time[j].date === date){
+                if(data[i].time[j].date == date){
                     totalApp += 1;
                     counter++
                     $("#allAppointments").append("<tr>"+ "<th scope='row' class='numx'>"+counter+"</th>" +
                     "<td>"+data[i]._id+"</td>" + "<td>"+data[i].time[j].date +"</td>" + "<td>" + 
-                    data[i].time[j].hour +"</td></tr>");   
+                    data[i].time[j].hour +"</td></tr>");  
+                    console.log(true); 
                 }                     
-            }
+            }            
         }      
-        $(".appointments").text(totalApp); 
+        $(".appointments").text(totalApp);
+
         
      });
    
@@ -289,7 +295,7 @@
             var flag = false;
             for(var i = 0;i<superdata.length;i++){
                if(patient === superdata[i]._id){
-                    console.log(i);
+                    console.log("okay " + i);
                     index = i;
                     flag = true;
                 }
