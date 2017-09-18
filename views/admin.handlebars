@@ -271,7 +271,7 @@
         rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
     }*/
     var totalAmount = 0;
-    $.get('http://localhost:2000/admin/data',function(data){
+    $.get('https://docappnode.herokuapp.com/admin/data',function(data){
          for(var i = 0;i<data.length;i++){
             $('#allpatients').append("<tr><th scope='row' class='num'>"+i+"</th>"+ "<td>"+data[i].name+" "+ data[i].lastName +"</td>" + "<td>" + 
             data[i].symptoms +"</td>"+"<td>"+data[i].amount +"</td>" +"</tr>");
@@ -409,7 +409,7 @@
                 myColors();
             }   
     }
-    $.get( "http://localhost:2000/admin/data", function( data ) {
+    $.get( "https://docappnode.herokuapp.com/admin/data", function( data ) {
        
         data = data.map(function(datum) {
         
@@ -446,7 +446,7 @@
     });
     
     var superdata=[];
-    $.get( "http://localhost:2000/admin/appointment", function( data ) {
+    $.get( "https://docappnode.herokuapp.com/admin/appointment", function( data ) {
        for(var x = 0;x<data.length;x++){
             superdata.push(data[x]);
         }

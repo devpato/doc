@@ -256,7 +256,7 @@
         $(".myUpdate").toggle();
     });
     var superdata=[];
-     $.get("http://localhost:2000/calendar/appointment", function( data ) {
+     $.get("https://docappnode.herokuapp.com/calendar/appointment", function( data ) {
          for(var x = 0;x<data.length;x++){
             superdata.push(data[x]);
         }
